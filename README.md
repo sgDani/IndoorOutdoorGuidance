@@ -7,7 +7,7 @@ Once you have API keys, edit them into `gradle.properties` in the project root l
 
 For more info visit our documentation site: http://docs.indooratlas.com.
 
-Copy the files contained in the folder txt_files on internal storage of your smartphone.
+Copy the txt files contained in Basic\txt_files on internal storage of your smartphone.
 
 
 
