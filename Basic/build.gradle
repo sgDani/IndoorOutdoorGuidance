@@ -1,0 +1,57 @@
+apply plugin: 'com.android.application'
+
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "22.0.1"
+
+    // note: use gradle.properties in project root level to set your api credentials
+    def apiKey = project.properties['indoorAtlasApiKey'] ?: "9bb84992-8ae6-438b-bf2a-e21f79433766";
+    def apiSecret = project.properties['indoorAtlasApiSecret'] ?: "TQ5qfrH5snkYNnXJwWVArw6DpLg6TwCsiTpKIbsHfx!cO09zd)MXogahS%Vk(S4!fEZQsrDWx6E9MiybmnRcAQZH9zEwKh5FjExHNRjYGra1jzRwSImqesK87pYF353)";
+
+    defaultConfig {
+        applicationId "com.indooratlas.android.sdk.examples"
+        minSdkVersion 11
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+        resValue "string", "indooratlas_api_key", apiKey
+        // avoid getting errors from malformed string resources if secret contains '%' chars
+        resValue "string", "indooratlas_api_secret", apiSecret.replaceAll("%", "\\\\u0025")
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file("debug.keystore")
+            storePassword "android"
+            keyAlias "sdk_debug"
+            keyPassword "android"
+        }
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+        }
+        release {
+            signingConfig signingConfigs.debug
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+    compile 'com.indooratlas.android:indooratlas-android-sdk:2.1.2@aar'
+    compile 'com.android.support:appcompat-v7:23.1.0'
+    compile 'com.google.android.gms:play-services:8.1.0'
+    compile 'com.google.maps.android:android-maps-utils:0.3.+'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.davemorrissey.labs:subsampling-scale-image-view:3.2.0'
+    compile 'com.android.support:design:23.1.0'
+    compile 'com.android.support:cardview-v7:23.1.1'
+
+}
